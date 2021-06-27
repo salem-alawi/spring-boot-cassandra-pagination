@@ -9,10 +9,8 @@ import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 @Table
 @NoArgsConstructor
@@ -53,5 +51,13 @@ public class Todo {
         this.setDescription(createAndUpdateTodoDto.getDescription());
         this.setTitle(createAndUpdateTodoDto.getTitle());
 
+    }
+
+    public void done() {
+        this.setStatus(TodoStatusEnum.DONE);
+    }
+
+    public void notDone() {
+        this.setStatus(TodoStatusEnum.NOT_DONE);
     }
 }

@@ -41,7 +41,7 @@ public class TodoService {
 
     public void deleteTodo(UUID todoId) {
         Todo todo = this.findOneById(todoId);
-        if(todo.getStatus()== TodoStatusEnum.NOT_FOUND|| todo.getId()==null)
+        if (todo.getStatus() == TodoStatusEnum.NOT_FOUND || todo.getId() == null)
             throw new RuntimeException("can't find todo");
 
         // hard delete  or in production should be like  todo.remove() this will change isActive = false
@@ -55,5 +55,25 @@ public class TodoService {
 
     public Todo findOneById(UUID todoId) {
         return this.todoRepository.findById(todoId).orElse(Todo.NotFound());
+    }
+
+    public void markAsDone(UUID id) {
+        Todo todo = this.findOneById(id);
+
+        if (todo.getStatus() != TodoStatusEnum.NOT_FOUND) {
+            todo.done();
+            this.todoRepository.save(todo);
+        }
+
+    }
+
+    public void markAsNotDone(UUID id) {
+
+        Todo todo = this.findOneById(id);
+
+        if (todo.getStatus() != TodoStatusEnum.NOT_FOUND) {
+            todo.notDone();
+            this.todoRepository.save(todo);
+        }
     }
 }

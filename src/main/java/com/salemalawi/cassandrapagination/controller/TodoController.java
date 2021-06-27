@@ -65,5 +65,16 @@ public class TodoController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @PostMapping("/todo/{id}/done")
+    public ResponseEntity markAsDone(@PathVariable("id")UUID id){
+        this.todoService.markAsDone(id);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PostMapping("/todo/not-done")
+    public ResponseEntity markAsNotDone(@PathVariable("id")UUID id){
+        this.todoService.markAsNotDone(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
 }
